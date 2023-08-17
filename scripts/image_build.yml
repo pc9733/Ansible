@@ -1,0 +1,24 @@
+---
+- name: Download Dockerfile from GitHub
+  hosts: all
+  tasks:
+    - name: Download Dockerfile
+      get_url:
+        url: https://raw.githubusercontent.com/pc9733/Flask_app/master/Dockerfile
+        dest: ~/Devops_project/Dockerfile
+
+    - name: Download Flask App
+      get_url:
+        url: https://raw.githubusercontent.com/pc9733/Flask_app/master/python_code/flask_app.py
+        dest: ~/Devops_project/python_code/flask_app.py
+
+    - name : Download requirement
+      get_url:
+        url: https://raw.githubusercontent.com/pc9733/Flask_app/master/python_code/requirements.txt
+        dest: ~/Devops_project/python_code/requirements.txt
+- name: Build Docker image
+  hosts: all
+  tasks:
+    - name: Build Docker image
+      command: docker build -t my_image:new ~/Devops_project/
+
